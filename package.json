@@ -2,7 +2,6 @@
   "name": "monorepo-lite",
   "private": true,
   "version": "0.0.0",
-  "main": "index.js",
   "scripts": {
     "dev": "npm-run-all -p dev:*",
     "dev:gql": "npm run -w apps/backend/gql dev",
@@ -14,10 +13,6 @@
     "apps/frontend/mobile",
     "apps/frontend/pc"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/r-tamoto-hitotsunagu/template-apollo-expo-next.git"
-  },
   "keywords": [
     "apollo",
     "next",
@@ -25,10 +20,6 @@
   ],
   "author": "r.tamoto",
   "license": "UNLICENSED",
-  "bugs": {
-    "url": "https://github.com/r-tamoto-hitotsunagu/template-apollo-expo-next/issues"
-  },
-  "homepage": "https://github.com/r-tamoto-hitotsunagu/template-apollo-expo-next#readme",
   "devDependencies": {
     "npm-run-all": "^4.1.5"
   }
