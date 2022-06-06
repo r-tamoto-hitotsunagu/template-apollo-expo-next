@@ -1,0 +1,22 @@
+overwrite: true
+schema: "apps/backend/gql/src/generated/schema.graphql"
+generates:
+  apps/frontend/pc/codegen/graphql.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-resolvers"
+      - "typescript-react-apollo"
+      - "fragment-matcher"
+    config:
+      withHooks: true
+  apps/frontend/mobile/codegen/graphql.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-resolvers"
+      - "typescript-react-apollo"
+      - "fragment-matcher"
+    config:
+      withHooks: true
+

@@ -1,0 +1,23 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator zod {
+  provider                 = "zod-prisma"
+  output                   = "../src/generated/zod"
+}
+
+
+model User {
+  id        String    @id
+  /// @zod.max(191, { message: "The title must be shorter than 191 characters" })
+  name      String    @unique
+  birthDate DateTime? @db.Date
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
+}
