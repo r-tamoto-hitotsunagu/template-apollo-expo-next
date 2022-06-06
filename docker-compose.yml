@@ -1,0 +1,55 @@
+version: "3.8"
+
+services:
+
+  nginx:
+    container_name: ${NGINX_CONTAINER_NAME}
+    build:
+      context: ./infrastructure/nginx/
+      dockerfile: Dockerfile
+    ports:
+      - ${NGINX_PORT}:80
+    depends_on:
+      - gql
+
+  redis:
+    container_name: ${REDIS_CONTAINER_NAME}
+    build:
+      context: ./infrastructure/redis/
+      dockerfile: Dockerfile
+    ports:
+      - ${REDIS_PORT}:6379
+
+  mysql:
+    image: mysql:8.0
+    container_name: ${MYSQL_CONTAINER_NAME}
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      TZ: ${TZ}
+    volumes:
+      - ./infrastructure/db/mysql/data:/var/lib/mysql
+      - ./infrastructure/db/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+    ports:
+      - ${MYSQL_PORT}:3306
+
+  gql:
+    container_name: ${GQL_CONTAINER_NAME}
+    build:
+      context: ./apps/backend/gql/
+      dockerfile: Dockerfile
+    privileged: true
+    restart: always
+    tty: true
+    env_file:
+      - ./apps/backend/gql/.env
+    links:
+      - mysql
+    ports:
+      - ${GQL_PORT}:3000
+    volumes:
+      - type: bind
+        source: ./apps/backend/gql/dist/
+        target: /home/express/app
