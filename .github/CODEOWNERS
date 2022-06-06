@@ -1,0 +1,6 @@
+infrastructure/nginx/* @r-tamoto-hitotsunagu
+infrastructure/redis/* @r-tamoto-hitotsunagu
+infrastructure/db/* @r-tamoto-hitotsunagu
+apps/backend/gql/* @r-tamoto-hitotsunagu
+apps/frontend/mobile/* @r-tamoto-hitotsunagu
+apps/frontend/website/* @r-tamoto-hitotsunagu
