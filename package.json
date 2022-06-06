@@ -6,7 +6,8 @@
     "dev": "npm-run-all -p dev:*",
     "dev:gql": "npm run -w apps/backend/gql dev",
     "dev:mobile": "npm run -w apps/frontend/mobile dev",
-    "dev:pc": "npm run -w apps/frontend/pc dev"
+    "dev:pc": "npm run -w apps/frontend/pc dev",
+    "generate": "graphql-codegen --config codegen.yml"
   },
   "workspaces": [
     "apps/backend/gql",
@@ -21,6 +22,13 @@
   "author": "r.tamoto",
   "license": "UNLICENSED",
   "devDependencies": {
+    "@graphql-codegen/cli": "^2.6.2",
+    "@graphql-codegen/fragment-matcher": "^3.2.1",
+    "@graphql-codegen/introspection": "^2.1.1",
+    "@graphql-codegen/typescript": "^2.4.11",
+    "@graphql-codegen/typescript-operations": "^2.4.0",
+    "@graphql-codegen/typescript-react-apollo": "^3.2.14",
+    "@graphql-codegen/typescript-resolvers": "^2.6.4",
     "npm-run-all": "^4.1.5"
   }
 }
