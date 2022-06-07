@@ -6,8 +6,10 @@ quick-start:
 ## common
 init:
 	@make cp-envs
-#	@make root-init
+	@make root-init
 	@make gql-init
+	@make mobile-init
+	@make pc-init
 
 cp-envs:
 	cp .env.example .env
@@ -19,7 +21,6 @@ generate:
 # Run Script
 start:
 	@make docker-build-up
-	npm run dev
 
 # Docker
 docker-build-up:
@@ -35,10 +36,25 @@ in-gql:
 gql-build:
 	npm run dev -w apps/backend/gql
 gql-init:
-	# npm i
-	npm run prisma-generate -w apps/backend/gql
-	npm run prisma-deploy -w apps/backend/gql
-	npm run build -w apps/backend/gql
+	cd ./apps/backend/gql && npm i
+	cd ./apps/backend/gql && npm run prisma-generate
+	cd ./apps/backend/gql && npm run prisma-deploy
+	cd ./apps/backend/gql && npm run build
+gql-run:
+	cd ./apps/backend/gql && npm run dev
+
+# mobile
+mobile-init:
+	cd ./apps/frontend/mobile && npm i
+mobile-run:
+	cd ./apps/frontend/mobile && npm run dev
+
+# pc
+pc-init:
+	cd ./apps/frontend/pc && npm i
+pc-run:
+	cd ./apps/frontend/pc && npm run dev
+
 
 # MySQL
 in-mysql:
