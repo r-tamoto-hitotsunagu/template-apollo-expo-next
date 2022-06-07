@@ -111,6 +111,7 @@ export interface NexusGenFieldTypes {
   Query: { // field return type
     userById: NexusGenRootTypes['User'] | null; // User
     userByName: NexusGenRootTypes['User'] | null; // User
+    users: Array<NexusGenRootTypes['User'] | null> | null; // [User]
   }
   User: { // field return type
     birthDate: NexusGenScalars['Date'] | null; // Date
@@ -137,6 +138,7 @@ export interface NexusGenFieldTypeNames {
   Query: { // field return type name
     userById: 'User'
     userByName: 'User'
+    users: 'User'
   }
   User: { // field return type name
     birthDate: 'Date'
