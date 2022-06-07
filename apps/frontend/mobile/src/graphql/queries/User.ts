@@ -8,4 +8,12 @@ export default gql`
       birthDate
     }
   }
+  query Users {
+    users {
+      id
+      name
+      birthDate
+      createdAt
+    }
+  }
 `;
