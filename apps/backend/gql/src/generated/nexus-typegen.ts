@@ -82,6 +82,7 @@ export interface NexusGenScalars {
 export interface NexusGenObjects {
   Mutation: {};
   Query: {};
+  Subscription: {};
   User: { // root type
     birthDate?: NexusGenScalars['Date'] | null; // Date
     createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
@@ -113,6 +114,9 @@ export interface NexusGenFieldTypes {
     userByName: NexusGenRootTypes['User'] | null; // User
     users: Array<NexusGenRootTypes['User'] | null> | null; // [User]
   }
+  Subscription: { // field return type
+    users: Array<NexusGenRootTypes['User'] | null> | null; // [User]
+  }
   User: { // field return type
     birthDate: NexusGenScalars['Date'] | null; // Date
     createdAt: NexusGenScalars['DateTime'] | null; // DateTime
@@ -138,6 +142,9 @@ export interface NexusGenFieldTypeNames {
   Query: { // field return type name
     userById: 'User'
     userByName: 'User'
+    users: 'User'
+  }
+  Subscription: { // field return type name
     users: 'User'
   }
   User: { // field return type name
