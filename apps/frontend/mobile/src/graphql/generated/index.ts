@@ -55,6 +55,8 @@ export type Query = {
   userById?: Maybe<User>;
   /** Get User from user name */
   userByName?: Maybe<User>;
+  /** Get Multi Users */
+  users?: Maybe<Array<Maybe<User>>>;
 };
 
 
