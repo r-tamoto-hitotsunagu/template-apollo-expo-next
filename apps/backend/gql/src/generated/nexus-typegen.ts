@@ -115,7 +115,7 @@ export interface NexusGenFieldTypes {
     users: Array<NexusGenRootTypes['User'] | null> | null; // [User]
   }
   Subscription: { // field return type
-    users: Array<NexusGenRootTypes['User'] | null> | null; // [User]
+    user: NexusGenRootTypes['User'] | null; // User
   }
   User: { // field return type
     birthDate: NexusGenScalars['Date'] | null; // Date
@@ -145,7 +145,7 @@ export interface NexusGenFieldTypeNames {
     users: 'User'
   }
   Subscription: { // field return type name
-    users: 'User'
+    user: 'User'
   }
   User: { // field return type name
     birthDate: 'Date'
