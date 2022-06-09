@@ -1,4 +1,6 @@
 import { arg, mutationField, nonNull, inputObjectType } from 'nexus';
+import { REDIS_KEY } from '@src/constants';
+import type { Context } from '@src/context';
 import { UserModel } from '@src/generated/zod';
 import { isZodError, ErrorUserRequest } from '@src/utils/errors.util';
 import { autoId } from '@src/utils/id.util';
@@ -17,9 +19,9 @@ export const createUser = mutationField('createUser', {
   args: {
     input: nonNull(arg({ type: request })),
   },
-  resolve: async (_parent, { input }, context) => {
+  resolve: async (_parent, { input }, ctx: Context) => {
     const { birthDate, name } = input;
-    const { prisma } = context;
+    const { prisma, pubsub } = ctx;
 
     try {
       UserModel.pick({ birthDate: true, name: true }).parse({
@@ -32,12 +34,15 @@ export const createUser = mutationField('createUser', {
       }
     }
 
-    return await prisma.user.create({
+    const newUser = await prisma.user.create({
       data: {
         id: autoId(),
         name,
         birthDate,
       },
     });
+
+    pubsub.publish(REDIS_KEY.USERS, newUser);
+    return newUser;
   },
 });

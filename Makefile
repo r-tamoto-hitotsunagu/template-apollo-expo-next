@@ -15,8 +15,8 @@ cp-envs:
 	cp .env.example .env
 	cp ./apps/backend/gql/.env.example ./apps/backend/gql/.env
 
-generate:
-	npm run codegen
+sync-schema:
+	@make mobile-sync-schema
 
 # Run Script
 start:
@@ -48,6 +48,8 @@ mobile-init:
 	cd ./apps/frontend/mobile && npm i
 mobile-run:
 	cd ./apps/frontend/mobile && npm run dev
+mobile-sync-schema:
+	cd ./apps/frontend/mobile && npm run codegen
 
 # pc
 pc-init:

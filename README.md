@@ -3,6 +3,11 @@
 ## 🚀 Getting started
 ```
 $ make quick-start
+
+# 以下のコマンドは別々のターミナルで実施
+$ make gql-run
+$ make mobile-run
+$ make pc-run
 ```
 
 | ----   | uri                            | feature                       |
@@ -12,3 +17,10 @@ $ make quick-start
 | gql    | http://localhost:4000/graphql | docker [gql] ref: dist        |
 | expo   | http://localhost:19002        | -                             |
 | Next.js | http://localhost:3300         | -                             |
+
+## How to sync schemas
+### Backend
+GraphQL側は `$ make gql-run` を実行している場合、ソースコードの変更を検知し、自動でschemaの同期が実行されます
+
+### Front
+Front側は `$ make sync-schema` を実行する事で、mobile, pc側のschema定義が更新されます

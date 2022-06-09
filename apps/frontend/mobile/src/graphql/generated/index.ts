@@ -69,6 +69,12 @@ export type QueryUserByNameArgs = {
   input: UserByNameInput;
 };
 
+export type Subscription = {
+  __typename?: 'Subscription';
+  /** Get Multi Users */
+  user?: Maybe<User>;
+};
+
 export type UpdatedAt = {
   /** Time updated */
   updatedAt?: Maybe<Scalars['DateTime']>;
