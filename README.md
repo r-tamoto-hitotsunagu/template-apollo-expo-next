@@ -4,7 +4,7 @@
 ```
 $ make quick-start
 
-# 以下のコマンドは別のターミナルで実施
+# 以下のコマンドは別々のターミナルで実施
 $ make gql-run
 $ make mobile-run
 $ make pc-run
