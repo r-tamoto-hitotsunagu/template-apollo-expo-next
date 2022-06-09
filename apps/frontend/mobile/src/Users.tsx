@@ -1,11 +1,17 @@
 import { Text, View } from 'react-native';
-import { useGetUserByIdQuery, useUsersQuery } from './graphql';
+import { useUserSubscription, useUsersQuery } from './graphql';
 
 export function Users() {
   const { loading, error, data } = useUsersQuery({
     // pollInterval: 500,
     fetchPolicy: 'no-cache',
   });
+
+  const {
+    loading: _loadingSubscription,
+    error: _errorSubscription,
+    data: dataSubscription,
+  } = useUserSubscription();
 
   if (loading) {
     return <Text>Loading...</Text>;
@@ -29,6 +35,13 @@ export function Users() {
           </View>
         );
       })}
+      {dataSubscription && (
+        <View>
+          <Text>Add</Text>
+          <Text>{dataSubscription?.user.name ?? ''}</Text>
+          <Text>{dataSubscription?.user.birthDate ?? ''}</Text>
+        </View>
+      )}
     </>
   );
 }
