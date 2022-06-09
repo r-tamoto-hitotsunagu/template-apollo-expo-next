@@ -4,7 +4,7 @@ import type { Context } from '@src/context';
 
 export const usersSubscription = subscriptionField('user', {
   type: 'User',
-  description: 'Get Multi Users',
+  description: 'Get push User',
   subscribe: (_, _args, ctx: Context) => {
     const { pubsub } = ctx;
     return pubsub.asyncIterator(REDIS_KEY.USERS);
