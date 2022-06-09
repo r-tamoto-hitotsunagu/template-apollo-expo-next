@@ -24,3 +24,4 @@ GraphQL側は `$ make gql-run` を実行している場合、ソースコード�
 
 ### Front
 Front側は `$ make sync-schema` を実行する事で、mobile, pc側のschema定義が更新されます
+また、Front側で使用する mutation, query, subscription を変更した場合も、`$ make sync-schema` を実行し 、schema定義を更新しましょう
