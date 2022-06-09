@@ -14,7 +14,7 @@ export function Users() {
 
   return (
     <>
-      {users?.map((user) => {
+      {users.map((user) => {
         return (
           <View key={user?.id ?? ''}>
             <Text>{user?.name ?? ''}</Text>
