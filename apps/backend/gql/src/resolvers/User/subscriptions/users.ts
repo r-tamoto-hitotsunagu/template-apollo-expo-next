@@ -1,6 +1,7 @@
 import { subscriptionField } from 'nexus';
 import { REDIS_KEY } from '@src/constants';
 import type { Context } from '@src/context';
+import type { NexusGenObjects } from '@src/generated/nexus-typegen';
 
 export const usersSubscription = subscriptionField('user', {
   type: 'User',
@@ -9,7 +10,7 @@ export const usersSubscription = subscriptionField('user', {
     const { pubsub } = ctx;
     return pubsub.asyncIterator(REDIS_KEY.USERS);
   },
-  resolve: (event) => {
+  resolve: (event: NexusGenObjects['User']) => {
     return event;
   },
 });
