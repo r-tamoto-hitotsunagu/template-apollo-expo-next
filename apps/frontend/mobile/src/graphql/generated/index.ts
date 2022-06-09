@@ -72,7 +72,7 @@ export type QueryUserByNameArgs = {
 export type Subscription = {
   __typename?: 'Subscription';
   /** Get Multi Users */
-  users?: Maybe<Array<Maybe<User>>>;
+  user?: Maybe<User>;
 };
 
 export type UpdatedAt = {
