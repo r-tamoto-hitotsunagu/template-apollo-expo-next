@@ -1,33 +1,20 @@
 import { Text, View } from 'react-native';
-import { useUserSubscription, useUsersQuery } from './graphql';
+import { useUserList } from './features/userList/hooks/useUserList';
 
 export function Users() {
-  const { loading, error, data } = useUsersQuery({
-    // pollInterval: 500,
-    fetchPolicy: 'no-cache',
-  });
-
-  const {
-    loading: _loadingSubscription,
-    error: _errorSubscription,
-    data: dataSubscription,
-  } = useUserSubscription();
+  const { loading, users } = useUserList();
 
   if (loading) {
     return <Text>Loading...</Text>;
   }
 
-  if (error) {
-    return <Text>Error :(</Text>;
-  }
-
-  if (data === undefined) {
+  if (users.length === 0) {
     return <Text>Not found</Text>;
   }
 
   return (
     <>
-      {data.users?.map((user) => {
+      {users?.map((user) => {
         return (
           <View key={user?.id ?? ''}>
             <Text>{user?.name ?? ''}</Text>
@@ -35,13 +22,6 @@ export function Users() {
           </View>
         );
       })}
-      {dataSubscription && (
-        <View>
-          <Text>Add</Text>
-          <Text>{dataSubscription?.user.name ?? ''}</Text>
-          <Text>{dataSubscription?.user.birthDate ?? ''}</Text>
-        </View>
-      )}
     </>
   );
 }

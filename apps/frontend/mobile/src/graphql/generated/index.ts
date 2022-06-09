@@ -71,7 +71,7 @@ export type QueryUserByNameArgs = {
 
 export type Subscription = {
   __typename?: 'Subscription';
-  /** Get Multi Users */
+  /** Get push User */
   user?: Maybe<User>;
 };
 
@@ -117,7 +117,7 @@ export type GetUserByIdQuery = { __typename?: 'Query', userById?: { __typename?:
 export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UsersQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'User', id?: string | null, name?: string | null, birthDate?: any | null, createdAt?: any | null } | null> | null };
+export type UsersQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'User', id?: string | null, name?: string | null, birthDate?: any | null } | null> | null };
 
 export type UserSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
@@ -205,7 +205,6 @@ export const UsersDocument = gql`
     id
     name
     birthDate
-    createdAt
   }
 }
     `;
