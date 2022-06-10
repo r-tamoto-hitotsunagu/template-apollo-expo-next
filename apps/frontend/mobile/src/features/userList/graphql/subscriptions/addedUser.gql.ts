@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export default gql`
-  subscription User {
-    user {
+  subscription AddedUser {
+    addedUser {
       id
       name
       birthDate
