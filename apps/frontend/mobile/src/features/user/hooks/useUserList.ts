@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 // TODO: aliasでimportを実行する
 import { AddedUserDocument, useUsersQuery } from '../../../graphql';
+// TODO: aliasでimportを実行する
 import type { User, AddedUserSubscription } from '../../../graphql';
 
 export const useUserList = (): {
