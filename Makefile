@@ -3,6 +3,7 @@ quick-start:
 	@make init
 	@make start
 
+
 ## common
 init:
 	@make cp-envs
@@ -18,9 +19,18 @@ cp-envs:
 sync-schema:
 	@make mobile-sync-schema
 
+generate-prisma:
+	@make gql-generate-prisma
+	@make sync-zod
+
+sync-zod:
+	@make mobile-sync-zod
+
+
 # Run Script
 start:
 	@make docker-build-up
+
 
 # Docker
 docker-build-up:
@@ -42,6 +52,9 @@ gql-init:
 	cd ./apps/backend/gql && npm run build
 gql-run:
 	cd ./apps/backend/gql && npm run dev
+gql-generate-prisma:
+	cd ./apps/backend/gql && npm run prisma-generate
+
 
 # mobile
 mobile-init:
@@ -50,6 +63,9 @@ mobile-run:
 	cd ./apps/frontend/mobile && npm run dev
 mobile-sync-schema:
 	cd ./apps/frontend/mobile && npm run codegen
+mobile-sync-zod:
+	cp -r ./apps/backend/gql/src/generated/zod ./apps/frontend/mobile/src/__generated__/
+
 
 # pc
 pc-init:
@@ -62,13 +78,16 @@ pc-run:
 in-mysql:
 	docker-compose exec mysql bash
 
+
 # Redis
 in-redis:
 	docker-compose exec redis bash
 
+
 # nginx
 in-nginx:
 	docker-compose exec nginx bash
+
 
 # Git
 git-delete-branch:

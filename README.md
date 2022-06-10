@@ -18,7 +18,7 @@ $ make pc-run
 | expo   | http://localhost:19002        | -                             |
 | Next.js | http://localhost:3300         | -                             |
 
-## How to sync schemas
+## 🎨 How to sync schemas
 ### Backend
 `$ make gql-run` を実行している場合、ソースコードの変更を検知し、自動でschemaへの同期が実行されます
 
@@ -26,3 +26,8 @@ $ make pc-run
 `$ make sync-schema` を実行する事で、mobile, pc側のschema定義が更新されます  
 また、Front側で使用する GraphQL Document ( mutation, query, subscription ) を変更した場合も、`$ make sync-schema` を実行し 、Front側のschema定義を更新しましょう  
 なお、BackendのSchema定義とFrontの GraphQL Document の整合性が合わない場合は、Command実行時に `GraphQLDocumentError` が発生するので、整合性エラーの検知にも使用する事が出来ます
+
+## ⛓ How to sync validate
+`$ make sync-zod` を実行する事で、mobile, pc側のzod定義が更新されます  
+Prismaの schema.prisma を更新した際に同期させる事が多いので、その場合は `$ make generate-prisma` を実行して下さい  
+Prisma ClientのCode生成とFront側のzod定義の更新が同時に実行されます
