@@ -72,7 +72,7 @@ export type QueryUserByNameArgs = {
 export type Subscription = {
   __typename?: 'Subscription';
   /** Get push User */
-  user?: Maybe<User>;
+  addedUser?: Maybe<User>;
 };
 
 export type UpdatedAt = {
@@ -100,6 +100,11 @@ export type UserByNameInput = {
   name: Scalars['String'];
 };
 
+export type AddedUserSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AddedUserSubscription = { __typename?: 'Subscription', addedUser?: { __typename?: 'User', id?: string | null, name?: string | null, birthDate?: any | null } | null };
+
 export type MutationMutationVariables = Exact<{
   input: CreateUserInput;
 }>;
@@ -119,12 +124,38 @@ export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type UsersQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'User', id?: string | null, name?: string | null, birthDate?: any | null } | null> | null };
 
-export type UserSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
+export const AddedUserDocument = gql`
+    subscription AddedUser {
+  addedUser {
+    id
+    name
+    birthDate
+  }
+}
+    `;
 
-export type UserSubscription = { __typename?: 'Subscription', user?: { __typename?: 'User', id?: string | null, name?: string | null, birthDate?: any | null } | null };
-
-
+/**
+ * __useAddedUserSubscription__
+ *
+ * To run a query within a React component, call `useAddedUserSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useAddedUserSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAddedUserSubscription({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAddedUserSubscription(baseOptions?: Apollo.SubscriptionHookOptions<AddedUserSubscription, AddedUserSubscriptionVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<AddedUserSubscription, AddedUserSubscriptionVariables>(AddedUserDocument, options);
+      }
+export type AddedUserSubscriptionHookResult = ReturnType<typeof useAddedUserSubscription>;
+export type AddedUserSubscriptionResult = Apollo.SubscriptionResult<AddedUserSubscription>;
 export const MutationDocument = gql`
     mutation Mutation($input: CreateUserInput!) {
   createUser(input: $input) {
@@ -235,34 +266,3 @@ export function useUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<User
 export type UsersQueryHookResult = ReturnType<typeof useUsersQuery>;
 export type UsersLazyQueryHookResult = ReturnType<typeof useUsersLazyQuery>;
 export type UsersQueryResult = Apollo.QueryResult<UsersQuery, UsersQueryVariables>;
-export const UserDocument = gql`
-    subscription User {
-  user {
-    id
-    name
-    birthDate
-  }
-}
-    `;
-
-/**
- * __useUserSubscription__
- *
- * To run a query within a React component, call `useUserSubscription` and pass it any options that fit your needs.
- * When your component renders, `useUserSubscription` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useUserSubscription({
- *   variables: {
- *   },
- * });
- */
-export function useUserSubscription(baseOptions?: Apollo.SubscriptionHookOptions<UserSubscription, UserSubscriptionVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useSubscription<UserSubscription, UserSubscriptionVariables>(UserDocument, options);
-      }
-export type UserSubscriptionHookResult = ReturnType<typeof useUserSubscription>;
-export type UserSubscriptionResult = Apollo.SubscriptionResult<UserSubscription>;

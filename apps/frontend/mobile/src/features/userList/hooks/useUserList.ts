@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
-import { UserDocument, useUsersQuery } from '../../../graphql';
-import type { User, UserSubscription } from '../../../graphql';
+// TODO: aliasでimportを実行する
+import { AddedUserDocument, useUsersQuery } from '../../../graphql';
+import type { User, AddedUserSubscription } from '../../../graphql';
 
 export const useUserList = (): {
   users: Pick<User, 'id' | 'name' | 'birthDate'>[];
@@ -11,15 +12,15 @@ export const useUserList = (): {
   });
 
   useEffect(() => {
-    subscribeToMore<UserSubscription>({
-      document: UserDocument,
+    subscribeToMore<AddedUserSubscription>({
+      document: AddedUserDocument,
       updateQuery: (prev, { subscriptionData }) => {
         if (!subscriptionData.data) {
           return prev;
         }
 
         return Object.assign({}, prev, {
-          users: [...(prev.users ?? []), subscriptionData.data.user],
+          users: [...(prev.users ?? []), subscriptionData.data.addedUser],
         });
       },
     });
