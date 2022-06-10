@@ -1,7 +1,7 @@
 import { Text, View } from 'react-native';
-import { useUserList } from './features/userList/hooks/useUserList';
+import { useUserList } from '../hooks/useUserList';
 
-export function Users() {
+export const UserList = () => {
   const { loading, users } = useUserList();
 
   if (loading) {
@@ -16,12 +16,12 @@ export function Users() {
     <>
       {users.map((user) => {
         return (
-          <View key={user?.id ?? ''}>
-            <Text>{user?.name ?? ''}</Text>
-            <Text>{user?.birthDate ?? ''}</Text>
+          <View key={user.id}>
+            <Text>{user.name}</Text>
+            <Text>{user.birthDate}</Text>
           </View>
         );
       })}
     </>
   );
-}
+};
