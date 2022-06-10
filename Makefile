@@ -16,6 +16,10 @@ cp-envs:
 	cp .env.example .env
 	cp ./apps/backend/gql/.env.example ./apps/backend/gql/.env
 
+sync-all:
+	@make sync-schema
+	@make sync-zod
+
 sync-schema:
 	@make mobile-sync-schema
 

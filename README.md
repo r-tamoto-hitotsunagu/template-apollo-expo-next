@@ -18,6 +18,11 @@ $ make pc-run
 | expo   | http://localhost:19002        | -                             |
 | Next.js | http://localhost:3300         | -                             |
 
+## 🤖 How to sync all
+`$ make sync-all` を実行する事で、backendとfrontendの共用ファイルを同期する事が出来ます  
+syncを個別に実行する場合は、次の How to sync xxx を確認してください
+
+
 ## 🎨 How to sync schemas
 ### Backend
 `$ make gql-run` を実行している場合、ソースコードの変更を検知し、自動でschemaへの同期が実行されます
