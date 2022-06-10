@@ -43,6 +43,14 @@ type Query {
 
   """Get User from user name"""
   userByName(input: UserByNameInput!): User
+
+  """Get Multi Users"""
+  users: [User]
+}
+
+type Subscription {
+  """Get push User"""
+  addedUser: User
 }
 
 """

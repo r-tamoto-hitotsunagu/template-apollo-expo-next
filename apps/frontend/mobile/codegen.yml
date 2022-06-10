@@ -1,6 +1,8 @@
 overwrite: true
 schema: "../../../apps/backend/gql/src/generated/schema.graphql"
-documents: "src/graphql/**/*.ts"
+documents:
+  - "src/graphql/**/*.ts"
+  - "src/features/**/graphql/**/*.gql.ts"
 generates:
   ./src/graphql/generated/index.ts:
     plugins:

@@ -55,6 +55,8 @@ export type Query = {
   userById?: Maybe<User>;
   /** Get User from user name */
   userByName?: Maybe<User>;
+  /** Get Multi Users */
+  users?: Maybe<Array<Maybe<User>>>;
 };
 
 
@@ -65,6 +67,12 @@ export type QueryUserByIdArgs = {
 
 export type QueryUserByNameArgs = {
   input: UserByNameInput;
+};
+
+export type Subscription = {
+  __typename?: 'Subscription';
+  /** Get push User */
+  addedUser?: Maybe<User>;
 };
 
 export type UpdatedAt = {
@@ -92,6 +100,11 @@ export type UserByNameInput = {
   name: Scalars['String'];
 };
 
+export type AddedUserSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AddedUserSubscription = { __typename?: 'Subscription', addedUser?: { __typename?: 'User', id?: string | null, name?: string | null, birthDate?: any | null } | null };
+
 export type MutationMutationVariables = Exact<{
   input: CreateUserInput;
 }>;
@@ -106,7 +119,43 @@ export type GetUserByIdQueryVariables = Exact<{
 
 export type GetUserByIdQuery = { __typename?: 'Query', userById?: { __typename?: 'User', id?: string | null, name?: string | null, birthDate?: any | null } | null };
 
+export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
 
+
+export type UsersQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'User', id?: string | null, name?: string | null, birthDate?: any | null } | null> | null };
+
+
+export const AddedUserDocument = gql`
+    subscription AddedUser {
+  addedUser {
+    id
+    name
+    birthDate
+  }
+}
+    `;
+
+/**
+ * __useAddedUserSubscription__
+ *
+ * To run a query within a React component, call `useAddedUserSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useAddedUserSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAddedUserSubscription({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAddedUserSubscription(baseOptions?: Apollo.SubscriptionHookOptions<AddedUserSubscription, AddedUserSubscriptionVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<AddedUserSubscription, AddedUserSubscriptionVariables>(AddedUserDocument, options);
+      }
+export type AddedUserSubscriptionHookResult = ReturnType<typeof useAddedUserSubscription>;
+export type AddedUserSubscriptionResult = Apollo.SubscriptionResult<AddedUserSubscription>;
 export const MutationDocument = gql`
     mutation Mutation($input: CreateUserInput!) {
   createUser(input: $input) {
@@ -181,3 +230,39 @@ export function useGetUserByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type GetUserByIdQueryHookResult = ReturnType<typeof useGetUserByIdQuery>;
 export type GetUserByIdLazyQueryHookResult = ReturnType<typeof useGetUserByIdLazyQuery>;
 export type GetUserByIdQueryResult = Apollo.QueryResult<GetUserByIdQuery, GetUserByIdQueryVariables>;
+export const UsersDocument = gql`
+    query Users {
+  users {
+    id
+    name
+    birthDate
+  }
+}
+    `;
+
+/**
+ * __useUsersQuery__
+ *
+ * To run a query within a React component, call `useUsersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUsersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUsersQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useUsersQuery(baseOptions?: Apollo.QueryHookOptions<UsersQuery, UsersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<UsersQuery, UsersQueryVariables>(UsersDocument, options);
+      }
+export function useUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UsersQuery, UsersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<UsersQuery, UsersQueryVariables>(UsersDocument, options);
+        }
+export type UsersQueryHookResult = ReturnType<typeof useUsersQuery>;
+export type UsersLazyQueryHookResult = ReturnType<typeof useUsersLazyQuery>;
+export type UsersQueryResult = Apollo.QueryResult<UsersQuery, UsersQueryVariables>;

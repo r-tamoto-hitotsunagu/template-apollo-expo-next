@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  k6:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    command: run
+    volumes:
+      - ./src:/src
+
+#networks:
+#  shared-network:
+#    external: true
+#    extra_hosts:
+#      - "host.docker.internal:host-gateway"
