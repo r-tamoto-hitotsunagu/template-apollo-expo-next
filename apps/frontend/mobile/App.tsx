@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 // TODO: aliasから読み込む
 import { Users } from './src/Users';
 // TODO: aliasから読み込む
-import { AppProvider } from './src/providers/appProvider';
+import { AppProvider } from './src/providers/';
 
 export default function App() {
   return (
