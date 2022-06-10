@@ -1,17 +1,12 @@
-import { SafeAreaView, StyleSheet, Button } from 'react-native';
-import { UserList } from '../components';
+import { Button, SafeAreaView, StyleSheet } from 'react-native';
 import { useNav } from '../hooks/useNav';
 
-export const UserListScreen = () => {
+export const AddUserScreen = () => {
   const nav = useNav();
 
   return (
     <SafeAreaView style={styles.container}>
-      <UserList />
-      <Button
-        title="User Register"
-        onPress={() => nav.navigate('AddUserScreen')}
-      />
+      <Button title="Back" onPress={() => nav.goBack()} />
     </SafeAreaView>
   );
 };

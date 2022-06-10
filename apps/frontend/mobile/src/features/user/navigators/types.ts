@@ -1,6 +1,6 @@
 export const userNavigators = {
   UserListScreen: undefined,
-  UserAddScreen: undefined,
+  AddUserScreen: undefined,
 };
 
 export type UserStacks = typeof userNavigators;
