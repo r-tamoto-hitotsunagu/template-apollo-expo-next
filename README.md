@@ -20,8 +20,9 @@ $ make pc-run
 
 ## How to sync schemas
 ### Backend
-GraphQL側は `$ make gql-run` を実行している場合、ソースコードの変更を検知し、自動でschemaの同期が実行されます
+`$ make gql-run` を実行している場合、ソースコードの変更を検知し、自動でschemaへの同期が実行されます
 
 ### Front
-Front側は `$ make sync-schema` を実行する事で、mobile, pc側のschema定義が更新されます
-また、Front側で使用する mutation, query, subscription を変更した場合も、`$ make sync-schema` を実行し 、schema定義を更新しましょう
+`$ make sync-schema` を実行する事で、mobile, pc側のschema定義が更新されます
+また、Front側で使用する GraphQL Document ( mutation, query, subscription ) を変更した場合も、`$ make sync-schema` を実行し 、Front側のschema定義を更新しましょう
+なお、BackendのSchema定義とFrontの GraphQL Document の整合性が合わない場合は、Command実行時に `GraphQLDocumentError` が発生するので、整合性エラーの検知にも使用する事が出来ます
