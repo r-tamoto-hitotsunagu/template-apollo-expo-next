@@ -50,7 +50,7 @@ type Query {
 
 type Subscription {
   """Get push User"""
-  user: User
+  addedUser: User
 }
 
 """
