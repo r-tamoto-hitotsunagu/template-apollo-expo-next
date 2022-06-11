@@ -1,11 +1,18 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useForm, Controller } from 'react-hook-form';
-import { Button, Text, TextInput, StyleSheet } from 'react-native';
+import { Button, Text, TextInput, StyleSheet, View } from 'react-native';
+// TODO: aliasでimportを実行する
+import { useCreateUserMutation } from '../../../__generated__/graphql';
+// TODO: aliasでimportを実行する
+import { formatDate } from '../../../utils/date.util';
 import { addUserValidator } from '../validators/addUserValidator';
 import type { AddUserValidator } from '../validators/addUserValidator';
 
 export const AddUserForm = () => {
+  const [createUserMutation, { loading, error, data }] =
+    useCreateUserMutation();
+
   const {
     control,
     handleSubmit,
@@ -14,18 +21,24 @@ export const AddUserForm = () => {
     resolver: zodResolver(addUserValidator),
   });
 
-  const onSubmit = (data: AddUserValidator) => {
-    console.log(data);
+  const onSubmit = async (input: AddUserValidator) => {
+    const { birthDate, name } = input;
+
+    await createUserMutation({
+      variables: {
+        input: {
+          name,
+          birthDate: formatDate(birthDate) ?? null,
+        },
+      },
+    });
   };
 
   return (
-    <>
-      <Text>Name</Text>
+    <View>
+      <Text style={styles.section}>Name</Text>
       <Controller
         name="name"
-        rules={{
-          required: true,
-        }}
         control={control}
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
@@ -36,9 +49,11 @@ export const AddUserForm = () => {
           />
         )}
       />
-      {errors.name && <Text>{errors.name.message}</Text>}
+      {errors.name && (
+        <Text style={styles.errorText}>{errors.name.message}</Text>
+      )}
 
-      <Text>Birthday</Text>
+      <Text style={styles.section}>Birthday</Text>
       <Controller
         name="birthDate"
         control={control}
@@ -54,10 +69,23 @@ export const AddUserForm = () => {
           />
         )}
       />
-      {errors.birthDate && <Text>{errors.birthDate.message}</Text>}
+      {errors.birthDate && (
+        <Text style={styles.errorText}>{errors.birthDate.message}</Text>
+      )}
+
+      {loading && <Text>Saving</Text>}
+      {error && <Text style={styles.errorText}>{error.message}</Text>}
+
+      {data && (
+        <View>
+          <Text>{data.createUser?.id}</Text>
+          <Text>{data.createUser?.name}</Text>
+          <Text>{data.createUser?.birthDate}</Text>
+        </View>
+      )}
 
       <Button title="Submit" onPress={handleSubmit(onSubmit)} />
-    </>
+    </View>
   );
 };
 
@@ -73,5 +101,11 @@ const styles = StyleSheet.create({
     height: 40,
     margin: 16,
     width: 104,
+  },
+  section: {
+    fontWeight: 'bold',
+  },
+  errorText: {
+    color: 'red',
   },
 });
