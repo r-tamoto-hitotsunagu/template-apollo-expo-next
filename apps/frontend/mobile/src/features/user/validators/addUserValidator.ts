@@ -1,6 +1,5 @@
-// TODO: aliasからimport
-import { UserModel } from '../../../__generated__/zod';
 import type { z } from 'zod';
+import { UserModel } from '$zodModel';
 
 const pickRuleFromModel = UserModel.pick({ birthDate: true, name: true });
 const customNameRule = pickRuleFromModel.shape.name.min(1, {
