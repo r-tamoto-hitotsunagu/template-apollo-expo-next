@@ -1,5 +1,4 @@
-// TODO: aliasからimport
-import type { InputMaybe, OutputMaybe } from '../types';
+import type { InputMaybe, OutputMaybe } from '$type';
 
 export const formatDate = (date: InputMaybe<Date>): OutputMaybe<string> => {
   if (!date) {

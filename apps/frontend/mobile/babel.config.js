@@ -9,6 +9,7 @@ module.exports = function (api) {
           root: ['.'],
           alias: {
             $gql: './src/__generated__/graphql',
+            $type: './src/types',
           },
         },
       ],
