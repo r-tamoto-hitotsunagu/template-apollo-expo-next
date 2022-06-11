@@ -10,6 +10,7 @@ module.exports = function (api) {
           alias: {
             $gql: './src/__generated__/graphql',
             $type: './src/types',
+            $util: './src/utils',
           },
         },
       ],

@@ -2,11 +2,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useForm, Controller } from 'react-hook-form';
 import { Button, Text, TextInput, StyleSheet, View } from 'react-native';
-// TODO: aliasでimportを実行する
-import { formatDate } from '../../../utils/date.util';
 import { addUserValidator } from '../validators/addUserValidator';
 import type { AddUserValidator } from '../validators/addUserValidator';
 import { useCreateUserMutation } from '$gql';
+import { formatDate } from '$util/date.util';
 
 export const AddUserForm = () => {
   const [createUserMutation, { loading, error, data }] =
