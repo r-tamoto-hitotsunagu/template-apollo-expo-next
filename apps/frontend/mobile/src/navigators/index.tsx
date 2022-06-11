@@ -1,9 +1,8 @@
 import React, { memo } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-// TODO: aliasからimport
-import { UserNavigator } from '../features/user';
 import type { RootStacks } from './type';
+import { UserNavigator } from '$feature/user';
 
 const RootStack = createNativeStackNavigator<RootStacks>();
 export const Navigator = memo(() => {
