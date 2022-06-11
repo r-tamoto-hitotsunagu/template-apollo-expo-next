@@ -1,5 +1,4 @@
-// TODO: aliasからimport
-import { userNavigators } from '../features/user';
+import { userNavigators } from '$feature/user';
 
 const rootStacks = {
   UserStacks: userNavigators,
