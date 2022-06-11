@@ -1,15 +1,6 @@
 import { useEffect } from 'react';
-// TODO: aliasでimportを実行する
-import {
-  AddedUserDocument,
-  useUsersQuery,
-} from '../../../__generated__/graphql';
-// TODO: aliasでimportを実行する
-import type {
-  User,
-  AddedUserSubscription,
-} from '../../../__generated__/graphql';
-
+import type { User, AddedUserSubscription } from '$gql';
+import { AddedUserDocument, useUsersQuery } from '$gql';
 export const useUserList = (): {
   users: Pick<User, 'id' | 'name' | 'birthDate'>[];
   loading: boolean;
