@@ -1,4 +1,4 @@
 "node_modules",
 "**/*.test.tsx",
 "**/*.spec.ts",
-"src/graphql/generated/*.ts"
+"src/__generated__/**/*.ts"
