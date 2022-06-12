@@ -1,5 +1,6 @@
 # Quick Start
 quick-start:
+	@make cp-envs
 	@make stop-all
 	@make start-infra
 	@make init
@@ -7,7 +8,6 @@ quick-start:
 
 ## common
 init:
-	@make cp-envs
 	@make root-init
 	@make gql-init
 	@make mobile-init
