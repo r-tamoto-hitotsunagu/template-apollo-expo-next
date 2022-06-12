@@ -31,6 +31,9 @@ generate-prisma:
 sync-zod:
 	@make mobile-sync-zod
 
+gen-plop:
+	npm run generate:plop
+
 
 # Run Script
 restart:
