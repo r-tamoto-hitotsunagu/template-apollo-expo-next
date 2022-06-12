@@ -13,6 +13,7 @@ module.exports = function (api) {
             $gql: './src/__generated__/graphql',
             $type: './src/types',
             $util: './src/utils',
+            $hook: './src/hooks',
           },
         },
       ],
