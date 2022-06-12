@@ -1,12 +1,13 @@
 # Quick Start
 quick-start:
+	@make cp-envs
+	@make stop-all
+	@make start-infra
 	@make init
-	@make start
-
+	@make start-app
 
 ## common
 init:
-	@make cp-envs
 	@make root-init
 	@make gql-init
 	@make mobile-init
@@ -32,9 +33,16 @@ sync-zod:
 
 
 # Run Script
-start:
+restart:
 	@make docker-build-up
-
+start-infra:
+	docker-compose up nginx --build -d
+	docker-compose up redis --build -d
+	docker-compose up mysql --build -d
+start-app:
+	docker-compose up gql --build -d
+stop-all:
+	docker-compose down
 
 # Docker
 docker-build-up:
