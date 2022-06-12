@@ -36,3 +36,7 @@ syncを個別に実行する場合は、次の How to sync xxx を確認して�
 `$ make sync-zod` を実行する事で、mobile, pc側のzod定義が更新されます  
 Prismaの schema.prisma を更新した際に同期させる事が多いので、その場合は `$ make generate-prisma` を実行して下さい  
 Prisma ClientのCode生成とFront側のzod定義の更新が同時に実行されます
+
+## 🛠️ How to run generator
+`$ make gen-plop` を実行することで、事前に定義した雛形を利用できます  
+雛形を追加する場合は、`tools/scaffolding` 配下に作成してください
