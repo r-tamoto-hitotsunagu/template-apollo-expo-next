@@ -1,22 +1,30 @@
-# Quick Start
-quick-start:
+setup-start:
+	@make cp-all
+	@make restart
+
+cp-all:
 	@make cp-envs
-	@make stop-all
+	@make cp-git-setting
+
+restart:
+	@make down-all
 	@make start-infra
-	@make init
+	@make setup-all
 	@make start-app
 
-## common
-init:
-	@make root-init
-	@make gql-init
-	@make mobile-init
-	@make pc-init
+setup-all:
+	@make root-setup
+	@make gql-setup
+	@make mobile-setup
+	@make pc-setup
 
 cp-envs:
-	cp .env.example .env
-	cp ./apps/backend/gql/.env.example ./apps/backend/gql/.env
+	@make root-cp-env
+	@make gql-cp-env
+	@make mobile-cp-env
 
+
+## common
 sync-all:
 	@make sync-schema
 	@make sync-zod
@@ -39,12 +47,11 @@ gen-plop:
 restart:
 	@make docker-build-up
 start-infra:
-	docker-compose up nginx --build -d
 	docker-compose up redis --build -d
 	docker-compose up mysql --build -d
 start-app:
-	docker-compose up gql --build -d
-stop-all:
+	docker-compose up gql nginx --build -d
+down-all:
 	docker-compose down
 
 # Docker
@@ -52,15 +59,17 @@ docker-build-up:
 	docker-compose down && docker-compose up --build -d
 
 # Root
-root-init:
+root-setup:
 	npm i
+root-cp-env:
+	cp .env.example .env
 
 # GraphQL
 in-gql:
 	docker-compose exec gql bash
 gql-build:
 	npm run dev -w apps/backend/gql
-gql-init:
+gql-setup:
 	cd ./apps/backend/gql && npm i
 	cd ./apps/backend/gql && npm run prisma-generate
 	cd ./apps/backend/gql && npm run prisma-deploy
@@ -69,10 +78,12 @@ gql-run:
 	cd ./apps/backend/gql && npm run dev
 gql-generate-prisma:
 	cd ./apps/backend/gql && npm run prisma-generate
+gql-cp-env:
+	cp ./apps/backend/gql/.env.example ./apps/backend/gql/.env
 
 
 # mobile
-mobile-init:
+mobile-setup:
 	cd ./apps/frontend/mobile && npm i
 mobile-run:
 	cd ./apps/frontend/mobile && npm run dev
@@ -80,10 +91,11 @@ mobile-sync-schema:
 	cd ./apps/frontend/mobile && npm run codegen
 mobile-sync-zod:
 	cp -r ./apps/backend/gql/src/generated/zod ./apps/frontend/mobile/src/__generated__/
-
+mobile-cp-env:
+	cp ./apps/frontend/mobile/env.example.ts ./apps/frontend/mobile/env.ts
 
 # pc
-pc-init:
+pc-setup:
 	cd ./apps/frontend/pc && npm i
 pc-run:
 	cd ./apps/frontend/pc && npm run dev
@@ -107,3 +119,5 @@ in-nginx:
 # Git
 git-delete-branch:
 	git branch --merged|egrep -v '\*|development|main'|xargs git branch -d
+cp-git-setting:
+	cp .githooks/pre-commit .git/hooks/pre-commit

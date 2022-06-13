@@ -2,13 +2,18 @@
 
 ## 🚀 Getting started
 ```
-$ make quick-start
+$ make setup-start
 
-# 以下のコマンドは別々のターミナルで実施
+# 以下のコマンド郡は別々のターミナルで実行
 $ make gql-run
+
+# apps/frontend/mobile/.env.ts の `API_DOMAIN` を自身のIP Addressに変更して実行
 $ make mobile-run
+
 $ make pc-run
 ```
+
+2回目以降は `$ make restart` にて実行
 
 | ----   | uri                            | feature                       |
 |--------|-------------------------------|-------------------------------|

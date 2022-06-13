@@ -9,16 +9,17 @@ import {
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { createClient } from 'graphql-ws';
+import { ENV } from '../envVars';
 
 // TODO: envから読み込む
 const httpLink = new HttpLink({
-  uri: 'http://192.168.0.6:3000/graphql',
+  uri: ENV.API_URI,
 });
 
 // TODO: envから読み込む
 const wsLink = new GraphQLWsLink(
   createClient({
-    url: 'ws://192.168.0.6:3000/graphql',
+    url: ENV.WS_URI,
     connectionParams: {
       // TODO: change auth token
       authToken: 'testToken',
