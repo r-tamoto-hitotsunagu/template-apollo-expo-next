@@ -2,7 +2,7 @@
 
 ## 🚀 Getting started
 ```
-$ make quick-start
+$ make setup-start
 
 # 以下のコマンドは別々のターミナルで実施
 $ make gql-run

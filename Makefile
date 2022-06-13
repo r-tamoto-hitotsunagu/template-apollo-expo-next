@@ -1,6 +1,10 @@
-quick-start:
-	@make cp-envs
+setup-start:
+	@make cp-all
 	@make restart
+
+cp-all:
+	@make cp-envs
+	@make cp-git-setting
 
 restart:
 	@make down-all
@@ -109,3 +113,5 @@ in-nginx:
 # Git
 git-delete-branch:
 	git branch --merged|egrep -v '\*|development|main'|xargs git branch -d
+cp-git-setting:
+	cp .githooks/pre-commit .git/hooks/pre-commit
