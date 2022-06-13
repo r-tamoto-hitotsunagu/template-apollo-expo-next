@@ -6,7 +6,6 @@ quick-start:
 	@make init
 	@make start-app
 
-## common
 init:
 	@make root-init
 	@make gql-init
@@ -17,6 +16,8 @@ cp-envs:
 	cp .env.example .env
 	cp ./apps/backend/gql/.env.example ./apps/backend/gql/.env
 
+
+## common
 sync-all:
 	@make sync-schema
 	@make sync-zod
@@ -39,11 +40,10 @@ gen-plop:
 restart:
 	@make docker-build-up
 start-infra:
-	docker-compose up nginx --build -d
 	docker-compose up redis --build -d
 	docker-compose up mysql --build -d
 start-app:
-	docker-compose up gql --build -d
+	docker-compose up gql nginx --build -d
 stop-all:
 	docker-compose down
 
