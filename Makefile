@@ -1,16 +1,18 @@
-# Quick Start
 quick-start:
 	@make cp-envs
-	@make stop-all
+	@make restart
+
+restart:
+	@make down-all
 	@make start-infra
-	@make init
+	@make setup-all
 	@make start-app
 
-init:
-	@make root-init
-	@make gql-init
-	@make mobile-init
-	@make pc-init
+setup-all:
+	@make root-setup
+	@make gql-setup
+	@make mobile-setup
+	@make pc-setup
 
 cp-envs:
 	cp .env.example .env
@@ -44,7 +46,7 @@ start-infra:
 	docker-compose up mysql --build -d
 start-app:
 	docker-compose up gql nginx --build -d
-stop-all:
+down-all:
 	docker-compose down
 
 # Docker
@@ -52,7 +54,7 @@ docker-build-up:
 	docker-compose down && docker-compose up --build -d
 
 # Root
-root-init:
+root-setup:
 	npm i
 
 # GraphQL
@@ -60,7 +62,7 @@ in-gql:
 	docker-compose exec gql bash
 gql-build:
 	npm run dev -w apps/backend/gql
-gql-init:
+gql-setup:
 	cd ./apps/backend/gql && npm i
 	cd ./apps/backend/gql && npm run prisma-generate
 	cd ./apps/backend/gql && npm run prisma-deploy
@@ -72,7 +74,7 @@ gql-generate-prisma:
 
 
 # mobile
-mobile-init:
+mobile-setup:
 	cd ./apps/frontend/mobile && npm i
 mobile-run:
 	cd ./apps/frontend/mobile && npm run dev
@@ -83,7 +85,7 @@ mobile-sync-zod:
 
 
 # pc
-pc-init:
+pc-setup:
 	cd ./apps/frontend/pc && npm i
 pc-run:
 	cd ./apps/frontend/pc && npm run dev

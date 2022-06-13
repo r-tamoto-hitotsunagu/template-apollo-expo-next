@@ -10,6 +10,8 @@ $ make mobile-run
 $ make pc-run
 ```
 
+2回目以降は `$ make restart` にて実行
+
 | ----   | uri                            | feature                       |
 |--------|-------------------------------|-------------------------------|
 | gql    | http://localhost/graphql | docker [nginx->gql] ref: dist |
