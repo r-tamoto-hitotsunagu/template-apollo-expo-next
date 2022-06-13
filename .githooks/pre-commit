@@ -22,17 +22,17 @@ allownonascii=$(git config --type=bool hooks.allownonascii)
 exec 1>&2
 
 if test "`git symbolic-ref HEAD | sed -e 's:^refs/heads/::'`" = main; then
-    echo "Commits to this branch are prohibited. Please use Pull Request :)"
+    echo "!!!!! Commits to this branch are prohibited. Please use Pull Request :) !!!!!"
     exit 1
 fi
 
 if test "`git symbolic-ref HEAD | sed -e 's:^refs/heads/::'`" = release; then
-    echo "Commits to this branch are prohibited. Please use Pull Request :)"
+    echo "!!!!! Commits to this branch are prohibited. Please use Pull Request :) !!!!!"
     exit 1
 fi
 
 if test "`git symbolic-ref HEAD | sed -e 's:^refs/heads/::'`" = development; then
-    echo "Commits to this branch are prohibited. Please use Pull Request :)"
+    echo "!!!!! Commits to this branch are prohibited. Please use Pull Request :) !!!!!"
     exit 1
 fi
 
