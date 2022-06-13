@@ -44,8 +44,6 @@ gen-plop:
 
 
 # Run Script
-restart:
-	@make docker-build-up
 start-infra:
 	docker-compose up redis --build -d
 	docker-compose up mysql --build -d
@@ -55,7 +53,7 @@ down-all:
 	docker-compose down
 
 # Docker
-docker-build-up:
+docker-restart:
 	docker-compose down && docker-compose up --build -d
 
 # Root
