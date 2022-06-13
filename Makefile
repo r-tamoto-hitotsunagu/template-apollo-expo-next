@@ -19,8 +19,9 @@ setup-all:
 	@make pc-setup
 
 cp-envs:
-	cp .env.example .env
-	cp ./apps/backend/gql/.env.example ./apps/backend/gql/.env
+	@make root-cp-env
+	@make gql-cp-env
+	@make mobile-cp-env
 
 
 ## common
@@ -60,6 +61,8 @@ docker-build-up:
 # Root
 root-setup:
 	npm i
+root-cp-env:
+	cp .env.example .env
 
 # GraphQL
 in-gql:
@@ -75,6 +78,8 @@ gql-run:
 	cd ./apps/backend/gql && npm run dev
 gql-generate-prisma:
 	cd ./apps/backend/gql && npm run prisma-generate
+gql-cp-env:
+	cp ./apps/backend/gql/.env.example ./apps/backend/gql/.env
 
 
 # mobile
@@ -86,7 +91,8 @@ mobile-sync-schema:
 	cd ./apps/frontend/mobile && npm run codegen
 mobile-sync-zod:
 	cp -r ./apps/backend/gql/src/generated/zod ./apps/frontend/mobile/src/__generated__/
-
+mobile-cp-env:
+	cp ./apps/frontend/mobile/env.example.ts ./apps/frontend/mobile/env.ts
 
 # pc
 pc-setup:
