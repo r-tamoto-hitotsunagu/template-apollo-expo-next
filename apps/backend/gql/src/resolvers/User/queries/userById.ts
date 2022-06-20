@@ -3,13 +3,13 @@ import { arg, inputObjectType, nonNull, queryField } from 'nexus';
 const request = inputObjectType({
   name: 'UserByIdInput',
   definition(t) {
-    t.nonNull.string('id');
+    t.nonNull.string('id', { description: 'ユーザーID' });
   },
 });
 
 export const userById = queryField('userById', {
   type: 'User',
-  description: 'Get User from id',
+  description: 'ユーザーIDからユーザーデータを取得',
   args: {
     input: nonNull(arg({ type: request })),
   },
