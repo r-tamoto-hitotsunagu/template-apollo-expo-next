@@ -1,16 +1,33 @@
+CP         := cp
+ifeq ($(OS),Windows_NT)
+    ifeq ($(MSYSTEM),)
+        CP         := copy
+    endif
+endif
+
 setup-start:
 	@make cp-all
-	@make restart
+	@make start-init
 
 cp-all:
 	@make cp-envs
 	@make cp-git-setting
 
-restart:
-	@make down-all
+start-init:
+	@make start-build
+	@make start-infra-init
+	@make setup-all
+	@make start-app-init
+
+start:
 	@make start-infra
 	@make setup-all
 	@make start-app
+
+restart:
+	@make down-all
+	@make start
+
 
 setup-all:
 	@make root-setup
@@ -44,9 +61,14 @@ gen-plop:
 
 
 # Run Script
+start-build:
+	docker-compose build
+start-infra-init:
+	docker-compose up redis mysql -d
 start-infra:
-	docker-compose up redis --build -d
-	docker-compose up mysql --build -d
+	docker-compose up redis mysql --build -d
+start-app-init:
+	docker-compose up gql nginx -d
 start-app:
 	docker-compose up gql nginx --build -d
 down-all:
@@ -60,7 +82,7 @@ docker-restart:
 root-setup:
 	npm i
 root-cp-env:
-	cp .env.example .env
+	$(CP) .env.example .env
 
 # GraphQL
 in-gql:
@@ -77,7 +99,7 @@ gql-run:
 gql-generate-prisma:
 	cd ./apps/backend/gql && npm run prisma-generate
 gql-cp-env:
-	cp ./apps/backend/gql/.env.example ./apps/backend/gql/.env
+	$(CP) ./apps/backend/gql/.env.example ./apps/backend/gql/.env
 
 
 # mobile
@@ -88,9 +110,9 @@ mobile-run:
 mobile-sync-schema:
 	cd ./apps/frontend/mobile && npm run codegen
 mobile-sync-zod:
-	cp -r ./apps/backend/gql/src/generated/zod ./apps/frontend/mobile/src/__generated__/
+	$(CP) -r ./apps/backend/gql/src/generated/zod ./apps/frontend/mobile/src/__generated__/
 mobile-cp-env:
-	cp ./apps/frontend/mobile/env.example.ts ./apps/frontend/mobile/env.ts
+	$(CP) ./apps/frontend/mobile/env.example.ts ./apps/frontend/mobile/env.ts
 
 # pc
 pc-setup:
@@ -118,4 +140,4 @@ in-nginx:
 git-delete-branch:
 	git branch --merged|egrep -v '\*|development|main'|xargs git branch -d
 cp-git-setting:
-	cp .githooks/pre-commit .git/hooks/pre-commit
+	$(CP) .githooks/pre-commit .git/hooks/pre-commit

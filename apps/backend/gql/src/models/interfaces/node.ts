@@ -3,6 +3,6 @@ import { interfaceType } from 'nexus';
 export const node = interfaceType({
   name: 'Node',
   definition(t) {
-    t.id('id', { description: 'GUID for a resource' });
+    t.id('id', { description: 'リソースのGUID' });
   },
 });
